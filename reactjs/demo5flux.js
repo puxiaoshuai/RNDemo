@@ -92,7 +92,7 @@ export default class FluxRouter extends React.Component {
     render() {
         return<Router>
             <Scene key="root">
-            <Scene key="home" component={Home} title="首页" initialPage={true} ></Scene>
+            <Scene key="home" component={Home} title="首页11" initialPage={true} ></Scene>
             <Scene key="mine" component={Mine} ></Scene>
             </Scene>
         </Router>

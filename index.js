@@ -8,7 +8,6 @@ import {
     StyleSheet, Text, TouchableOpacity,
     View,AppRegistry
 } from 'react-native';
-import  Location from './reactjs/lacation'
 import Feach from './reactjs/demo1_Feach'
 import List from './reactjs/demo2_list'
 import ImageTest from './reactjs/demo4_img'
