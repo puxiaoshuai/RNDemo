@@ -99,7 +99,7 @@ export default class  Home extends React.Component {
                     icon={{name: 'ac-unit', size: 32}}
                     buttonStyle={{backgroundColor: 'red', borderRadius: 10}}
                     textStyle={{textAlign: 'center'}}
-                    title={`Welcome to\nReact Native Elements`} />
+                    title={`Welcome to\nReact Native Elements1`} />
                 <Text>FontAwesome</Text>
                 <FontAwesome name="address-card" size={80} color="#4F8EF7" />
                 <Text>SocialIcon-------------</Text>
