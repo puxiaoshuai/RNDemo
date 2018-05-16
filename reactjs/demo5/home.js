@@ -5,10 +5,19 @@
  */
 import React, {PropTypes} from 'react';
 import {
+    ScrollView,
     StyleSheet, Text,
     View,
 } from 'react-native';
 import FontAwesome from "react-native-vector-icons/FontAwesome"
+import Icon from  'react-native-vector-icons/Ionicons'
+import { Button } from 'react-native-elements';
+import { SocialIcon } from 'react-native-elements';
+import { Badge } from 'react-native-elements';
+import { Avatar } from 'react-native-elements';
+import EIcon from "react-native-elements/src/icons/Icon";
+
+
 
 
 
@@ -52,6 +61,7 @@ export default class  Home extends React.Component {
      * （不能够使用setState()来改变属性 多次调用）
      */
     shouldComponentUpdate() {
+        return true
 
     }
 
@@ -82,11 +92,60 @@ export default class  Home extends React.Component {
     render() {
         return (
             <View>
-                <Text>我是首页</Text>
+                <ScrollView>
+                <Text>react-native-elements——button</Text>
+                <Button
+                    raised
+                    icon={{name: 'ac-unit', size: 32}}
+                    buttonStyle={{backgroundColor: 'red', borderRadius: 10}}
+                    textStyle={{textAlign: 'center'}}
+                    title={`Welcome to\nReact Native Elements`} />
+                <Text>FontAwesome</Text>
                 <FontAwesome name="address-card" size={80} color="#4F8EF7" />
+                <Text>SocialIcon-------------</Text>
+                <SocialIcon
+                    type='twitter'
+                />
+                <Text>elements -Icon-------------</Text>
+                    <View style={styles.icon_style}>
+                <EIcon
+                    reverse
+                    name='ios-american-football'
+                    type='ionicon'
+                    color='#517fa4'
+                />
+                <EIcon
+                    reverse
+                    name='android'
+                    type='MaterialIcon'
+                    color='#517fa4'
+                />
+                <EIcon
+                    reverse
+                    name='apps'
+                    type='Entypo'
+                    color='#517fa4'
+                />
+                <EIcon
+                    raised
+                    name='heartbeat'
+                    type='font-awesome'
+                    color='#f50'
+                    />
+                    </View>
+                    <Text>react-native-vector-iconsIcon-------------</Text>
+                    <View style={styles.icon_style}>
+                        <Icon name="md-american-football" size={64}></Icon>
+                    </View>
+                </ScrollView>
             </View>
         );
     }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    icon_style:{
+        flexDirection:"row",
+        flexWrap:"wrap"
+    }
+});
