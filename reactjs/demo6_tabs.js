@@ -5,15 +5,21 @@
  */
 import React, {PropTypes} from 'react';
 import {
-    StyleSheet, Text,
+    Image,
+    StyleSheet,
     View,
 } from 'react-native';
-
-export default class  Mine extends React.Component {
+import  TabNavigator from  'react-native-tab-navigator'
+import Home from './demo5/home'
+import Mine from './demo5/mine'
+import Hot from './demo5/hot'
+export default class BottomTabs extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            selectedTab:'首页'
+        }
     }
 
     static propTypes = {}
@@ -76,14 +82,59 @@ export default class  Mine extends React.Component {
     componentWillUnmount() {
 
     }
-
+    _renderTabsItems(selectTab,icon,selectedIcon,Mycomponent,bagetab)
+    {
+        return(
+            <TabNavigator.Item
+                selected={this.state.selectedTab === selectTab}
+                title={selectTab}
+                titleStyle={styles.tabText}
+                selectedTitleStyle={styles.selectedTabText}
+                renderIcon={() => <Image style={styles.icon} source={icon} />}
+                renderSelectedIcon={() => <Image style={styles.icon} source={selectedIcon} />}
+                onPress={() => this.setState({ selectedTab: selectTab })}//选择监听
+                badgeText={bagetab}
+              
+            >
+                <Mycomponent/>
+            </TabNavigator.Item>
+        )
+    }
     render() {
         return (
-            <View>
-               <Text>我是我的个人中心</Text>
+            <View style={styles.container}>
+                <TabNavigator tabBarStyle={ styles.tabbar}>
+                    {this._renderTabsItems("首页",require('../img/ic_homeno.png'),require('../img/ic_homechoose.png'),Home,"")}
+                    {this._renderTabsItems("推荐",require('../img/ic_tuijianno.png'),require('../img/ic_tuijian.png'),Hot,"")}
+                    {this._renderTabsItems("我的",require('../img/ic_mineno.png'),require('../img/ic_minechoose.png'),Mine,"1")}
+                </TabNavigator>
             </View>
         );
     }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container:{
+        flex:1,
+        backgroundColor:'#fff'
+    },
+    tabText:{
+        color:'#000000',
+        fontSize:12
+    },
+    selectedTabText:{
+        color:'#D81E06'
+        ,fontSize:12
+    },
+    icon:{
+        width:24,
+        height:24
+    },
+    tabbar:{
+        height:54,
+
+    }
+
+})
+
+

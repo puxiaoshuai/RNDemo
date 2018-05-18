@@ -9,7 +9,7 @@ import {
     View,
 } from 'react-native';
 
-export default class  Mine extends React.Component {
+export default class  Hot extends React.Component {
 
     constructor(props) {
         super(props);
@@ -80,7 +80,7 @@ export default class  Mine extends React.Component {
     render() {
         return (
             <View>
-               <Text>我是我的个人中心</Text>
+               <Text>热点推荐</Text>
             </View>
         );
     }

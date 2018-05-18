@@ -9,7 +9,7 @@ import {
     View,
 } from 'react-native';
 
-export default class  Mine extends React.Component {
+export default class MyDrawer extends React.Component {
 
     constructor(props) {
         super(props);
@@ -49,7 +49,6 @@ export default class  Mine extends React.Component {
      * （不能够使用setState()来改变属性 多次调用）
      */
     shouldComponentUpdate() {
-        return true
 
     }
 
@@ -80,7 +79,7 @@ export default class  Mine extends React.Component {
     render() {
         return (
             <View>
-               <Text>我是我的个人中心</Text>
+                <Text>我是侧滑</Text>
             </View>
         );
     }

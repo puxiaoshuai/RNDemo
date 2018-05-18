@@ -10,9 +10,11 @@ import {
 } from 'react-native';
 import NewsDetails from "./newsdetials";
 import Icon from "react-native-vector-icons/Ionicons"
-import {Router,Scene} from 'react-native-router-flux'
+import {Drawer, Router, Scene} from 'react-native-router-flux'
 import Home from '../reactjs/demo5/home'
 import Mine from '../reactjs/demo5/mine'
+import BottomTabs from '../reactjs/demo6_tabs'
+import MyDrawer from '../reactjs/demo5/drawer'
 export default class FluxRouter extends React.Component {
 
     constructor(props) {
@@ -92,14 +94,14 @@ export default class FluxRouter extends React.Component {
     render() {
         return<Router>
             <Scene key="root">
-            <Scene key="home" component={Home} title="首页" initialPage={true} ></Scene>
+            <Scene key="home" component={BottomTabs} title="星APP" initialPage={true} ></Scene>
             <Scene key="mine" component={Mine} ></Scene>
+                <Drawer tabs={true} component={MyDrawer} drawerWidth={80}></Drawer>
             </Scene>
         </Router>
 
     }
 }
-
 const styles = StyleSheet.create({});
 /*
 return <Router>
