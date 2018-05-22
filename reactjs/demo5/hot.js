@@ -6,10 +6,12 @@
 import React, {PropTypes} from 'react';
 import {
     StyleSheet, Text,
-    View,
+    View, Dimensions, Image
 } from 'react-native';
-
+import  Swiper from 'react-native-swiper'
+const  {width} = Dimensions.get("window")
 export default class  Hot extends React.Component {
+
 
     constructor(props) {
         super(props);
@@ -79,11 +81,70 @@ export default class  Hot extends React.Component {
 
     render() {
         return (
-            <View>
-               <Text>热点推荐</Text>
-            </View>
+            <Swiper
+                style={styles.wrapper}          //样式
+                height={200}                   //组件高度
+                loop={true}                    //如果设置为false，那么滑动到最后一张时，再次滑动将不会滑到第一张图片。
+                autoplay={true}                //自动轮播
+                autoplayTimeout={2}                //每隔4秒切换
+                horizontal={true}              //水平方向，为false可设置为竖直方向
+                paginationStyle={{bottom: 10}} //小圆点的位置：距离底部10px
+                showsButtons={true}           //为false时不显示控制按钮
+                showsPagination={true}       //为false不显示下方圆点
+                dot={<View style={{           //未选中的圆点样式
+                    backgroundColor: '#ffbfc5',
+                    width: 18,
+                    height: 18,
+                    borderRadius: 4,
+                    marginLeft: 10,
+                    marginRight: 9,
+                    marginTop: 9,
+                    marginBottom: 9,
+                }}/>}
+                activeDot={<View style={{    //选中的圆点样式
+                    backgroundColor: '#ff0b00',
+                    width: 18,
+                    height: 18,
+                    borderRadius: 4,
+                    marginLeft: 10,
+                    marginRight: 9,
+                    marginTop: 9,
+                    marginBottom: 9,
+                }}/>}
+
+            >
+                <View style={styles.img} >
+                    <Text >Beautiful11</Text>
+
+                </View>
+                <View style={styles.img} >
+                    <Text >Beautiful222</Text>
+
+                </View>
+                <View style={styles.img} >
+                    <Text >Beautiful33</Text>
+
+                </View>
+
+            </Swiper>
         );
     }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    wrapper: {
+        height:200
+    },
+
+    slide: {
+
+        justifyContent: 'center',
+        backgroundColor: 'transparent',
+        height:200
+    },
+    img: {
+        width:width,
+        height: 200,
+    },
+
+});

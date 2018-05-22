@@ -15,6 +15,7 @@
     "react-native-router-flux": "^4.0.0-beta.28",
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-storage": "^0.2.2",
+    "react-native-swiper": "^1.5.13",
     "react-native-tab-navigator": "^0.3.4",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.0.0",
