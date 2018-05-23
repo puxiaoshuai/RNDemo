@@ -116,7 +116,7 @@ export default class  Home extends React.Component {
                 />
                 <EIcon
                     reverse
-                    name='android'
+                    name='ac-unit'
                     type='MaterialIcon'
                     color='#517fa4'
                 />

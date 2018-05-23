@@ -92,7 +92,7 @@ export default class  Hot extends React.Component {
                 showsButtons={true}           //为false时不显示控制按钮
                 showsPagination={true}       //为false不显示下方圆点
                 dot={<View style={{           //未选中的圆点样式
-                    backgroundColor: '#ffbfc5',
+                    backgroundColor: '#ffe9ee',
                     width: 18,
                     height: 18,
                     borderRadius: 4,
@@ -133,7 +133,8 @@ export default class  Hot extends React.Component {
 
 const styles = StyleSheet.create({
     wrapper: {
-        height:200
+        flex:1
+        ,flex:0.3
     },
 
     slide: {

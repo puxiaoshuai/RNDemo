@@ -13,6 +13,7 @@ import  TabNavigator from  'react-native-tab-navigator'
 import Home from './demo5/home'
 import Mine from './demo5/mine'
 import Hot from './demo5/hot'
+import Box from '../reactjs/demo7_felxbox'
 export default class BottomTabs extends React.Component {
 
     constructor(props) {
@@ -94,7 +95,7 @@ export default class BottomTabs extends React.Component {
                 renderSelectedIcon={() => <Image style={styles.icon} source={selectedIcon} />}
                 onPress={() => this.setState({ selectedTab: selectTab })}//选择监听
                 badgeText={bagetab}
-              
+
             >
                 <Mycomponent/>
             </TabNavigator.Item>
@@ -105,7 +106,7 @@ export default class BottomTabs extends React.Component {
             <View style={styles.container}>
                 <TabNavigator tabBarStyle={ styles.tabbar}>
                     {this._renderTabsItems("首页",require('../img/ic_homeno.png'),require('../img/ic_homechoose.png'),Home,"")}
-                    {this._renderTabsItems("推荐",require('../img/ic_tuijianno.png'),require('../img/ic_tuijian.png'),Hot,"")}
+                    {this._renderTabsItems("推荐",require('../img/ic_tuijianno.png'),require('../img/ic_tuijian.png'),Box,"")}
                     {this._renderTabsItems("我的",require('../img/ic_mineno.png'),require('../img/ic_minechoose.png'),Mine,"1")}
                 </TabNavigator>
             </View>
