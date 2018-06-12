@@ -104,7 +104,6 @@ export default class Feach1  extends React.Component {
     {
         fetch(NET_URL, {
             method: 'GET'
-
         })
             .then((response) => response.json())
             .then((responseData) => {

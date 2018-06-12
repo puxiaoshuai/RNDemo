@@ -94,9 +94,7 @@ export default class FluxRouter extends React.Component {
     render() {
         return<Router>
             <Scene key="root">
-            <Scene key="home" component={BottomTabs} title="星APP"  initialPage={true} ></Scene>
-            <Scene key="mine" component={Mine} ></Scene>
-                <Drawer tabs={true} component={MyDrawer} drawerWidth={80}></Drawer>
+            <Scene key="home" component={BottomTabs} title="星APP"  initial={true} />
             </Scene>
         </Router>
 

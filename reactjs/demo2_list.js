@@ -146,7 +146,6 @@ export default class FlatListTest extends React.Component {
             <View style={styles.container}>
                 <FlatList
                     data={this.state.news}
-
                     ItemSeparatorComponent={() => <View style={{
                         height: 1,
                         backgroundColor: '#d63f00'

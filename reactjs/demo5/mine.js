@@ -6,8 +6,10 @@
 import React, {PropTypes} from 'react';
 import {
     StyleSheet, Text,
+    ToastAndroid,
     View,
 } from 'react-native';
+import  Orientation from 'react-native-orientation'
 
 export default class  Mine extends React.Component {
 
@@ -23,6 +25,13 @@ export default class  Mine extends React.Component {
      * （能够使用setState()来改变属性 有且只有一次）
      */
     componentWillMount() {
+      const  initial= Orientation.getInitialOrientation();
+        if (initial === 'PORTRAIT') {
+            // do something
+        } else {
+            // do something else
+        }
+
 
     }
 
@@ -32,9 +41,28 @@ export default class  Mine extends React.Component {
      * （能够使用setState()来改变属性 有且只有一次）
      */
     componentDidMount() {
-
+        Orientation.lockToLandscape();
+        Orientation.addOrientationListener(this._orientationDidChange);
+    }
+    _orientationDidChange = (orientation) => {
+        if (orientation === 'LANDSCAPE') {
+            // do something with landscape layout
+            ToastAndroid.show("11,",1000)
+        } else {
+            // do something with portrait layout
+            ToastAndroid.show("我在干嘛",100)
+        }
     }
 
+    componentWillUnmount() {
+        Orientation.getOrientation((err, orientation) => {
+            console.log(`Current Device Orientation: ${orientation}`);
+        });
+
+
+        // Remember to remove listener
+        Orientation.removeOrientationListener(this._orientationDidChange);
+    }
     /**
      * 输入参数 nextProps 是即将被设置的属性，旧的属性还是可以通过 this.props 来获取。在这个回调函数里面，你可以根据属性的变化，
      * 通过调用 this.setState() 来更新你的组件状态，这里调用更新状态是安全的，并不会触发额外的 render()

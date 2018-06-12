@@ -6,7 +6,7 @@
 import React, {PropTypes} from 'react';
 import {
     Dimensions,
-    StyleSheet, Text,
+    StyleSheet, Text, TextInput,
     View,
 } from 'react-native';
 import Icon from  'react-native-vector-icons/Ionicons'
@@ -18,7 +18,9 @@ export default class Box extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            text:'默认数据'
+        }
     }
 
     static propTypes = {}
@@ -88,15 +90,22 @@ export default class Box extends React.Component {
                 <View >
                     <Icon name="md-aperture" size={64} style={styles.usericon}></Icon>
                 </View>
-                <View style={ {width:100,height:100,margin:40,backgroundColor:'gray'}}>
-                    <Text style={ {fontSize:12,margin:20,justifyContent:'center'}}>尺寸</Text>
-                </View>
+                <TextInput
+                    style={{height: 40, borderColor: 'gray',borderWidth: 1}}
+                    onChangeText={(text) =>this.setState({
+                        text:text
+                    })}
+                    defaultValue='我是提示值'
+                    value={this.state.text}
+                    placeholder={'ffff'}
+                />
+                <Text>{this.state.text}</Text>
             </View>
         );
     }
 }
 
-const styles = StyleSheet.create({
+let styles = StyleSheet.create({
     background:{
         backgroundColor:ColorUrils.color_back
         ,flex:1
