@@ -1,7 +1,7 @@
 'use strict'
 import {combineReducers} from 'redux'
-import loginIn from '../reducers/loginReducer'
+import ChangReducer from '../reducers/ChangReduce'
 const  rootReducer=combineReducers({
-
+    ChangReducer
 })
 export  default rootReducer
