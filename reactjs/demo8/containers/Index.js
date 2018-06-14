@@ -3,15 +3,15 @@
  * author：
  * date：
  */
-import React  from 'react';
-
+import React from 'react';
 import {
-    StyleSheet, Text,
-    View,
+    StyleSheet,
 } from 'react-native';
-
-export default class TextComponent extends React.Component {
-
+import {Provider} from "react-redux";
+import Main from '../containers/Main'
+import configStore from '../redux/store/configureStore1'
+const  store= configStore()
+export default class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {}
@@ -79,16 +79,12 @@ export default class TextComponent extends React.Component {
     }
 
     render() {
-        const  {get_text_tag,get_text}=this.props
         return (
-            <View>
-            <Text style={{color:get_text_tag=='out'?"#52393e":"#ff000e"}}>{get_text}</Text>
-            </View>
+          <Provider store={store}>
+              <Main/>
+          </Provider>
         );
     }
 }
-
-
-
 
 const styles = StyleSheet.create({});

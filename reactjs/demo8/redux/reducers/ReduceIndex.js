@@ -1,7 +1,7 @@
 'use strict'
 import {combineReducers} from 'redux'
-import ChangReducer from '../reducers/ChangReduce'
+import ChangReducer from './ChangReduce'
 const  rootReducer=combineReducers({
-    ChangReducer
+   ChangReducer
 })
 export  default rootReducer

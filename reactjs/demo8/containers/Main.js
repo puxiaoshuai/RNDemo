@@ -3,18 +3,15 @@
  * author：
  * date：
  */
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {
-    StyleSheet,
+    StyleSheet,ToastAndroid,
     View,
 } from 'react-native';
 import {Button} from "react-native-elements";
 import TextComponent from "../components/TextComponent";
-import configureStore1 from "../store/configureStore1";
-import {changText} from "../actions/ChangAction";
-import {Provider,connect} from "react-redux";
-
-const  store1=configureStore1()
+import {inWay} from "../redux/actions/ChangAction";
+import {connect} from "react-redux";
  class Main extends React.Component {
 
     constructor(props) {
@@ -55,6 +52,7 @@ const  store1=configureStore1()
      * （不能够使用setState()来改变属性 多次调用）
      */
     shouldComponentUpdate() {
+        return true
 
     }
 
@@ -81,19 +79,20 @@ const  store1=configureStore1()
     componentWillUnmount() {
 
     }
-
+//推荐容器和视图分开。先创建视图，在创建行为
     render() {
-        const {onChangeText } =this.props
+        const {inWay1 , outWay1 } =this.props
         return (
-            <Provider store={store1}>
             <View style={styles.container}>
+                {/*需要改变的组件,把参数往下传*/}
                 <TextComponent {...this.props}/>
                 <Button  color={'#0a0707'}
-                         onPress={onChangeText}
+                         onPressOut={outWay1}//()=>outWay1()
+                         onPressIn={inWay1}  //()=>inWay1()
                          buttonStyle={styles.button}
-                         title='点击我改变文字' />
+                         title='按住我会改变文字颜色' />
             </View>
-            </Provider>
+
 
         );
     }
@@ -114,17 +113,21 @@ const styles = StyleSheet.create({
 // 获取 state 变化
 const mapStateToProps = (state) => {
     return {
-       value:state.text1
+       get_text_tag:state.text_tag,
+        get_text:state.textData
     }
 };
 
-// 发送行为
+
+// 发送行为,会在props中拿到
 const mapDispatchToProps = (dispatch) => {
     return {
-        onChangeText: () => dispatch(changText('外部传值')),
+
+        inWay1:()=>dispatch(inWay("松开我就又变成很黑色了","in")),//表示已经按住了，所以提示这样
+        outWay1:()=>dispatch(inWay("按住下方按钮我会变成红色","out"))
+
     }
 };
-
 // 进行第二层包装,生成的新组件拥有 接收和发送 数据的能力
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
 

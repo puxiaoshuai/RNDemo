@@ -3,10 +3,10 @@
 * */
 import {createStore,applyMiddleware} from 'redux'
 import  thunkMiddleware from 'redux-thunk'
-import  rootReducer from '../reducers/index'
+import  rootReducer from '../reducers/ReduceIndex'
 const  creteStoreWithMiddleware=applyMiddleware(thunkMiddleware)(createStore)
-export  default  function configureStore( initState) {
+ function configureStore( initState) {
     const  store=creteStoreWithMiddleware(rootReducer,initState)
     return store
-
 }
+export  default  configureStore()

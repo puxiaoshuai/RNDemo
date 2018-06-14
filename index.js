@@ -17,7 +17,7 @@ import codePush from 'react-native-code-push'
 import DemoBuju from './reactjs/demobuju'
 import QQ from './reactjs/demo6'
 import ChangColor1 from './reactjs/demo8/changecolor1'
-import Main from './reactjs/demo8/containers/Main'
+import Index1 from './reactjs/demo8/containers/Index'
 import {Button} from 'react-native-elements'
 export default class Index extends React.Component {
 
@@ -141,6 +141,6 @@ export default class Index extends React.Component {
 }
 
 
-AppRegistry.registerComponent('HelloRN', () => Main);
+AppRegistry.registerComponent('HelloRN', () => Index1);
 
 
