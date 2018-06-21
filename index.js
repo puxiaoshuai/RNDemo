@@ -3,7 +3,7 @@
  * author：
  * date：
  */
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {
     StyleSheet, Text, TouchableOpacity,
     View,AppRegistry
@@ -13,12 +13,16 @@ import List from './reactjs/demo2_list'
 import ImageTest from './reactjs/demo4_img'
 import Demo_ScroTab from  './reactjs/demo3_scrollTab'
 import  Demo5 from './reactjs/demo5flux'
-import codePush from 'react-native-code-push'
+
 import DemoBuju from './reactjs/demobuju'
 import QQ from './reactjs/demo6'
+
 import ChangColor1 from './reactjs/demo8/changecolor1'
 import Index1 from './reactjs/demo8/containers/Index'
 import {Button} from 'react-native-elements'
+import BarcodeScanner from  './reactjs/demo8/containers/demo_scan'
+import  BarcodeTest from './reactjs/SmartScan'
+
 export default class Index extends React.Component {
 
     constructor(props) {
@@ -27,57 +31,16 @@ export default class Index extends React.Component {
             text:"你好"
         }
     }
-    static propTypes = {}
+
 
     /**
      * 初始化了状态之后，在第一次绘制 render() 之前
      * （能够使用setState()来改变属性 有且只有一次）
      */
     componentWillMount() {
-      // this.codePushUpdate()
+
     }
-//远程服务检测更新
-    codePushUpdate() {
-        codePush.sync({
-                installMode: codePush.InstallMode.IMMEDIATE,
-                updateDialog: true
-            },
-            (status) => {
-                switch (status) {
-                    case codePush.SyncStatus.CHECKING_FOR_UPDATE:
-                        console.log('codePush.SyncStatus.CHECKING_FOR_UPDATE');
-                        break;
-                    case codePush.SyncStatus.AWAITING_USER_ACTION:
-                        console.log('codePush.SyncStatus.AWAITING_USER_ACTION');
-                        break;
-                    case codePush.SyncStatus.DOWNLOADING_PACKAGE:
-                        console.log('codePush.SyncStatus.DOWNLOADING_PACKAGE');
-                        break;
-                    case codePush.SyncStatus.INSTALLING_UPDATE:
-                        console.log('codePush.SyncStatus.INSTALLING_UPDATE');
-                        break;
-                    case codePush.SyncStatus.UP_TO_DATE:
-                        console.log('codePush.SyncStatus.UP_TO_DATE');
-                        break;
-                    case codePush.SyncStatus.UPDATE_IGNORED:
-                        console.log('codePush.SyncStatus.UPDATE_IGNORED');
-                        break;
-                    case codePush.SyncStatus.UPDATE_INSTALLED:
-                        console.log('codePush.SyncStatus.UPDATE_INSTALLED');
-                        break;
-                    case codePush.SyncStatus.SYNC_IN_PROGRESS:
-                        console.log('codePush.SyncStatus.SYNC_IN_PROGRESS');
-                        break;
-                    case codePush.SyncStatus.UNKNOWN_ERROR:
-                        console.log('codePush.SyncStatus.UNKNOWN_ERROR');
-                        break;
-                }
-            },
-            ({receivedBytes, totalBytes,}) => {
-                console.log('receivedBytes / totalBytes: ------------    ' + receivedBytes + '/' + totalBytes);
-            }
-        );
-    }
+
     /**
      * 这个函数开始，就可以和 JS 其他框架交互了，例如设置计时 setTimeout 或者 setInterval，
      * 或者发起网络请求。这个函数也是只被调用一次
@@ -141,6 +104,6 @@ export default class Index extends React.Component {
 }
 
 
-AppRegistry.registerComponent('HelloRN', () => Index1);
+AppRegistry.registerComponent('HelloRN', () => QQ);
 
 

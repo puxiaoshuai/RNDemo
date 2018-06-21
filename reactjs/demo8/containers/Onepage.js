@@ -3,17 +3,16 @@
  * author：
  * date：
  */
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {
-    StyleSheet, Text,
-    View, WebView,Dimensions
+    Button,
+    StyleSheet, Text, ToastAndroid,
+    View,BackHandler
 } from 'react-native';
-//获取设备的宽度和高度
-var {
-    height: deviceHeight,
-    width: deviceWidth
-} = Dimensions.get('window');
-export default class NewsDetails extends React.Component {
+import {Actions} from 'react-native-router-flux'
+import {connect} from "react-redux";
+import {inWay} from "../redux/actions/ChangAction";
+ class Oneoage extends React.Component {
 
     constructor(props) {
         super(props);
@@ -27,6 +26,8 @@ export default class NewsDetails extends React.Component {
      * （能够使用setState()来改变属性 有且只有一次）
      */
     componentWillMount() {
+        console.log("onepage_willMount")
+        BackHandler.addEventListener("hardwareBackPress",this.onBackAndroid)
 
     }
 
@@ -36,7 +37,7 @@ export default class NewsDetails extends React.Component {
      * （能够使用setState()来改变属性 有且只有一次）
      */
     componentDidMount() {
-
+        console.log("onepage_didMount")
     }
 
     /**
@@ -45,7 +46,7 @@ export default class NewsDetails extends React.Component {
      * （能够使用setState()来改变属性 多次调用）
      */
     componentWillReceiveProps() {
-
+        console.log("onepage_componentWillReceiveProps")
     }
 
     /**
@@ -53,6 +54,7 @@ export default class NewsDetails extends React.Component {
      * （不能够使用setState()来改变属性 多次调用）
      */
     shouldComponentUpdate() {
+        console.log("onepage_shouldComponentUpdate")
         return true
 
     }
@@ -62,7 +64,7 @@ export default class NewsDetails extends React.Component {
      * （不能够使用setState()来改变属性 多次调用）
      */
     componentWillUpdate() {
-
+        console.log("onepage_componentWillUpdate")
     }
 
     /**
@@ -70,38 +72,54 @@ export default class NewsDetails extends React.Component {
      * （不能够使用setState()来改变属性 多次调用）
      */
     componentDidUpdate() {
-
+        console.log("onepage_componentDidUpdate")
     }
-
     /**
      * 组件要被从界面上移除的时候，就会调用 componentWillUnmount()
      * （不能够使用setState()来改变属性 有且只有一次调用）
      */
     componentWillUnmount() {
-
+        console.log("onepage_componentWillUnmount")
+        BackHandler.removeEventListener("hardwareBackPress",this.onBackAndroid)
     }
-
+     onBackAndroid = () => {
+         if (this.lastBackPressed && this.lastBackPressed + 2000 >= Date.now()) {
+             //最近2秒内按过back键，可以退出应用。
+             return false;
+         }
+         this.lastBackPressed = Date.now();
+         ToastAndroid.show('再按一次退出应用'+Date.now(), ToastAndroid.SHORT);
+         return true;
+     };
     render() {
+        const  {get_changtext}=this.props
+        const gotoDetails = () => Actions.home_two()//跳转并传值
         return (
             <View style={styles.container}>
-               {/* <Text>ff{this.props.url}</Text>*/}
-                <WebView
-                    automaticallyAdjustContentInsets={false}
-                    source={{uri:this.props.url}}
-                    javaScriptEnabled={true}
-                    scrollEnabled={true}
-                    startInLoadingState={true}
-                />
-
-
+                <Text>{"秀英秀英秀英秀英秀英秀英秀英秀英秀英秀英秀英秀英秀英秀英秀英秀英秀英\n"+get_changtext}</Text>
+                <Button title="测试" onPress={gotoDetails}>点击跳转</Button>
             </View>
         );
     }
 }
-//样式定义
+
+// 获取 state 变化
+const mapStateToProps = (store) => {
+    return {
+        get_text_tag:store.default.userStore.text_tag,//获取别名
+        get_text:store.default.userStore.textData,
+        get_changtext:store.default.userStore.changtext
+    }
+};
+
+// 进行第二层包装,生成的新组件拥有 接收和发送 数据的能力，可以只接受，或者只发送
+export default connect(mapStateToProps, null)(Oneoage);
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#ffa7b7',
     }
 });
-

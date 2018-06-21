@@ -6,26 +6,18 @@ import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.microsoft.codepush.react.CodePush;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.github.yamill.orientation.OrientationPackage;
-import com.microsoft.codepush.react.CodePush;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.github.yamill.orientation.OrientationPackage;
-import com.microsoft.codepush.react.CodePush;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.github.yamill.orientation.OrientationPackage;
-import com.microsoft.codepush.react.CodePush;
-import com.github.yamill.orientation.OrientationPackage;
+import com.eguma.barcodescanner.BarcodeScannerPackage;
 
-import com.microsoft.codepush.react.CodePush;
-import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.reactnativecomponent.barcode.RCTCapturePackage;
 
 import java.util.Arrays;
 import java.util.List;
+
+
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -38,7 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     
     @Override
     public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
+      return true;
     }
 
     @Override
@@ -47,7 +39,10 @@ public class MainApplication extends Application implements ReactApplication {
             new MainReactPackage(),
             new VectorIconsPackage(),
             new OrientationPackage(),
-            new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG)
+            new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), true),
+            new BarcodeScannerPackage(),
+              new RCTCapturePackage()
+
 
       );
     }

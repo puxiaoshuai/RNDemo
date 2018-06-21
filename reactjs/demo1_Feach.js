@@ -3,7 +3,7 @@
  * author：puhao
  * date：
  */
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {
     Button,
     Image,
@@ -30,7 +30,7 @@ export default class Feach1  extends React.Component {
         }
     }
 
-    static propTypes = {}
+
 
     /**
      * 初始化了状态之后，在第一次绘制 render() 之前

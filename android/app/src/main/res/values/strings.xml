@@ -1,5 +1,6 @@
 <resources>
 
+
     <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">ujJkBHtboIowoiCDY3Vhaeu2NBe58c157eb4-c840-4567-9319-4f2ef4a1159d</string>
     <string name="app_name">HelloRN</string>
 </resources>

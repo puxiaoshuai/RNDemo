@@ -3,7 +3,7 @@
  * author：
  * date：
  */
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {
     StyleSheet, Text,
     View,
@@ -15,8 +15,6 @@ export default class Login extends React.Component {
         super(props);
         this.state = {}
     }
-
-    static propTypes = {}
 
     /**
      * 初始化了状态之后，在第一次绘制 render() 之前

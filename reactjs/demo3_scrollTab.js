@@ -3,7 +3,7 @@
  * author：puhao
  * date： 4/22
  */
-import React, {PropTypes} from 'react';
+import React  from 'react';
 import {
     ScrollView,FlatList,
     StyleSheet, Text, View,
@@ -24,7 +24,7 @@ export default class Tabs extends React.Component {
         };
     }
 
-    static propTypes = {}
+
 
     /**
      * 初始化了状态之后，在第一次绘制 render() 之前

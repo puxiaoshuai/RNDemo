@@ -6,21 +6,15 @@
 import React from 'react';
 import {
     StyleSheet, Text,
-    View, WebView,Dimensions
+    View,
 } from 'react-native';
-//获取设备的宽度和高度
-var {
-    height: deviceHeight,
-    width: deviceWidth
-} = Dimensions.get('window');
-export default class NewsDetails extends React.Component {
+
+export default class ThreePage extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {}
     }
-
-    static propTypes = {}
 
     /**
      * 初始化了状态之后，在第一次绘制 render() 之前
@@ -54,7 +48,6 @@ export default class NewsDetails extends React.Component {
      */
     shouldComponentUpdate() {
         return true
-
     }
 
     /**
@@ -83,25 +76,12 @@ export default class NewsDetails extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
-               {/* <Text>ff{this.props.url}</Text>*/}
-                <WebView
-                    automaticallyAdjustContentInsets={false}
-                    source={{uri:this.props.url}}
-                    javaScriptEnabled={true}
-                    scrollEnabled={true}
-                    startInLoadingState={true}
-                />
+            <View>
 
-
+<Text>我是第三页，我是热更新出来的界面</Text>
             </View>
         );
     }
 }
-//样式定义
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    }
-});
 
+const styles = StyleSheet.create({});

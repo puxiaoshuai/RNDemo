@@ -3,7 +3,7 @@
  * author：
  * date：
  */
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {
     StyleSheet,
     View,
@@ -21,7 +21,7 @@ export default class Root extends React.Component {
         this.state = {}
     }
 
-    static propTypes = {}
+
 
     /**
      * 初始化了状态之后，在第一次绘制 render() 之前
