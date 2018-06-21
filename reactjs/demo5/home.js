@@ -80,7 +80,6 @@ export default class  Home extends React.Component {
     componentDidUpdate() {
 
     }
-
     /**
      * 组件要被从界面上移除的时候，就会调用 componentWillUnmount()
      * （不能够使用setState()来改变属性 有且只有一次调用）

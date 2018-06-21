@@ -13,7 +13,7 @@ import List from './reactjs/demo2_list'
 import ImageTest from './reactjs/demo4_img'
 import Demo_ScroTab from  './reactjs/demo3_scrollTab'
 import  Demo5 from './reactjs/demo5flux'
-
+import DemoList from './reactjs/custormlist/DemoList'
 import DemoBuju from './reactjs/demobuju'
 import QQ from './reactjs/demo6'
 
@@ -104,6 +104,6 @@ export default class Index extends React.Component {
 }
 
 
-AppRegistry.registerComponent('HelloRN', () => QQ);
+AppRegistry.registerComponent('HelloRN', () => DemoList);
 
 
