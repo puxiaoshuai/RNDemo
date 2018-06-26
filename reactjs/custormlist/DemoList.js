@@ -32,7 +32,6 @@ export default class DemoList extends React.Component {
             />
         )
     }
-
     _renderItem = (item) => {
         return (
             <MovieItemCell movie={item.item} onPress={() => {
@@ -41,13 +40,10 @@ export default class DemoList extends React.Component {
         )
     };
 
-
-
     /**
      * 加载正在上映的电影列表，此处默认城市为北京，取20条数据显示
      */
     loadDisplayingMovies() {
-
         fetch(queryMovies('成', this.state.startPage, this.state.pageSize)).then((response) => response.json()).then((json) => {
             console.log(json);
             let movies = [];

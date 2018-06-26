@@ -9,9 +9,37 @@ import {
     StyleSheet, Text,
     View,
 } from 'react-native';
-import {Actions} from 'react-native-router-flux'
 
-export default class ThreePage extends React.Component {
+export default class PageOne extends React.Component {
+    //设置顶部导航栏的内容
+    static navigationOptions = () => ({
+        //左侧标题
+        headerTitle: '我是主页面',
+        //设置跳转页面左侧返回箭头后面的文字，默认是上一个页面的标题
+        headerBackTitle: null,
+        //顶部标题栏的样式
+        headerStyle: styles.headerStyle,
+        //顶部标题栏文字的样式
+        headerTitleStyle: styles.headerTitleStyle,
+        //设置滑动返回的距离
+        gestureResponseDistance: {horizontal: 300},
+
+        //设置跳转页面左侧返回箭头后面的文字，默认是上一个页面的标题
+        headerBackTitle: null,
+        //导航栏的样式
+        headerStyle: styles.headerStyle,
+        //导航栏文字的样式
+        headerTitleStyle: styles.headerTitleStyle,
+        //返回按钮的颜色
+        headerTintColor: 'white',
+        //隐藏顶部导航栏
+        // header: null,
+        //设置顶部导航栏右边的视图  和 解决当有返回箭头时，文字不居中
+
+        //设置导航栏左边的视图
+        // headerLeft: (<View/>),
+        elevation: 0
+    });
 
     constructor(props) {
         super(props);
@@ -78,17 +106,42 @@ export default class ThreePage extends React.Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
+                   <Text style={styles.textsize}>我是第一页</Text>
+                 <Button color={"#68c4ff"} title="点击跳转到第二页" onPress={()=>this.toPage()}/>
 
-<Text>我是第三页，我是热更新出来的界面</Text>
-                <Button color={"#68c4ff"} title="点击返回第二页，并传递至第二页" onPress={()=>this.totow()}/>
             </View>
         );
     }
-    totow(){
-        Actions.popTo('home_two'); //先popTo到要返回的页
-        Actions.refresh({ "data1": "我是第三页过来的数据"}); //再传值刷新页面
+    toPage()
+    {
+        this.props.navigation.navigate("PageTwo",{data:"我是第一页的数据AA"})
     }
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+    textsize:{
+        marginBottom:32,
+      fontSize:18,
+      color:'#0c0e13'
+    },
+
+    headerStyle: {
+        backgroundColor: '#ff9fac',
+    },
+    headerTitleStyle: {
+        flex:1, textAlign: 'center',
+        //标题的文字颜色
+        color: 'white',
+        //设置标题的大小
+        fontSize: 18,
+        //居中显示
+        alignSelf: 'center',
+    },
+});

@@ -48,13 +48,12 @@ export default class RefreshListView extends Component {
         )
     }
     /// 渲染一个空白页，当列表无数据的时候显示。这里简单写成一个View控件
-    _renderEmptyView = (item) => {
+    _renderEmptyView = () => {
          return (
             <View style={styles.emptyView}>
                 <Text style={styles.textStyle}>
                     暂无数据,请刷新
                 </Text>
-
             </View>
         );
     };

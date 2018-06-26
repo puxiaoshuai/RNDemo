@@ -6,7 +6,7 @@
 import React from 'react';
 import {
     Image,
-    StyleSheet, ToastAndroid,
+    StyleSheet, Text, ToastAndroid,
     View,
 } from 'react-native';
 import {Button} from "react-native-elements";
@@ -44,8 +44,9 @@ import {Actions} from "react-native-router-flux";
      * 通过调用 this.setState() 来更新你的组件状态，这里调用更新状态是安全的，并不会触发额外的 render()
      * （能够使用setState()来改变属性 多次调用）
      */
-    componentWillReceiveProps() {
+    componentWillReceiveProps(nextProps) {
         console.log("two_componentWillReceiveProps")
+        ToastAndroid.show(nextProps.data1,1000)  //若果数据没变化是吗，好像只执行一次
     }
 
     /**
@@ -99,6 +100,7 @@ import {Actions} from "react-native-router-flux";
                 <Button color={'#0a0707'} buttonStyle={{marginTop:32}} onPress={()=>{
                     Actions.home_three()
                 }} title="跳转到第三页，以前没得这个按钮，新加的"/>
+                <Text>第三页过来的数据是:{this.props.data1}</Text>
                {/* <View style={{backgroundColor:"#ff9505",position:'absolute' ,right:20,bottom:20 ,width:40,height:40}}/>
                 <View style={{backgroundColor:"#ff9505",position:'absolute' ,left:20,bottom:20 ,width:40,height:40}}/>
                 <View style={{backgroundColor:"#ff9505",position:'absolute' ,left:20,top:20 ,width:40,height:40}}/>

@@ -4,10 +4,12 @@
  * date：
  */
 import React from 'react';
+
 import {
     StyleSheet, Text, TouchableOpacity,
-    View,AppRegistry
+    View,AppRegistry,YellowBox
 } from 'react-native';
+YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 import Feach from './reactjs/demo1_Feach'
 import List from './reactjs/demo2_list'
 import ImageTest from './reactjs/demo4_img'
@@ -15,13 +17,15 @@ import Demo_ScroTab from  './reactjs/demo3_scrollTab'
 import  Demo5 from './reactjs/demo5flux'
 import DemoList from './reactjs/custormlist/DemoList'
 import DemoBuju from './reactjs/demobuju'
-import QQ from './reactjs/demo6'
+import QQ from './reactjs/demoqq6'
 
 import ChangColor1 from './reactjs/demo8/changecolor1'
 import Index1 from './reactjs/demo8/containers/Index'
 import {Button} from 'react-native-elements'
 import BarcodeScanner from  './reactjs/demo8/containers/demo_scan'
 import  BarcodeTest from './reactjs/SmartScan'
+import  AppNavigation  from  './reactjs/demo_navigation/navigtion'
+import DemoPicker from './reactjs/demo_imgpicker'
 
 export default class Index extends React.Component {
 
@@ -104,6 +108,6 @@ export default class Index extends React.Component {
 }
 
 
-AppRegistry.registerComponent('HelloRN', () => DemoList);
+AppRegistry.registerComponent('HelloRN', () => Index1);
 
 

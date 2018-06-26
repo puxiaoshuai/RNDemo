@@ -3,6 +3,7 @@ package com.hellorn;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -40,8 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new OrientationPackage(),
             new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), true),
-            new BarcodeScannerPackage(),
-              new RCTCapturePackage()
+            new BarcodeScannerPackage(), new RCTCapturePackage()
 
 
       );
