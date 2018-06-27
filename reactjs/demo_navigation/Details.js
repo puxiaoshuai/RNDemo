@@ -5,13 +5,13 @@
  */
 import React from 'react';
 import {
-    Button,
-    StyleSheet, Text,
+    Button, Image,
+    StyleSheet, Text, ToastAndroid, TouchableOpacity,Alert,
     View,
 } from 'react-native';
 
 
-export default class PageTwo extends React.Component {
+export default class Details extends React.Component {
     //设置顶部导航栏的内容
     static navigationOptions = () => ({
         //左侧标题
@@ -28,22 +28,20 @@ export default class PageTwo extends React.Component {
         headerTitleStyle: styles.headerTitleStyle,
         //返回按钮的颜色
         headerTintColor: 'white',
-
         //隐藏顶部导航栏
         // header: null,
 
         //设置顶部导航栏右边的视图  和 解决当有返回箭头时，文字不居中
-        headerRight: (<View/>),
+        headerRight: rightView,
+
         //设置导航栏左边的视图
         // headerLeft: (<View/>),
-        elevation: 0
+
     });
 
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
+        this.state = {}
     }
 
     /**
@@ -107,40 +105,94 @@ export default class PageTwo extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-          <Text>我是第二页</Text>
+                <Text onPress={() => {
+                    ToastAndroid.show("点击了我", 1000)
+                }}>我是第二页</Text>
                 <Text style={styles.textsize}>{this.props.navigation.state.params.data}</Text>
 
             </View>
         );
     }
-    toonePage()
-    {
-        this.props.navigation.goBack("PageOne",{name:"我是从第二页返回的数据BBB"})
-    }
+
 }
 
 const styles = StyleSheet.create({
+    rightContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: "center",
+        alignItems: "center"
+
+    },
+    imgStyle: {
+        width: 26, height: 26, marginRight: 8
+    },
+    imgStyle1: {
+        width: 20, height: 20, marginRight: 8
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
-    textsize:{
-        marginBottom:32,
-        fontSize:18,
-        color:'#0c0e13'
+    textsize: {
+        marginBottom: 32,
+        fontSize: 18,
+        color: '#0c0e13'
     },
     headerStyle: {
         backgroundColor: '#ff9fac',
+        elevation: 0
     },
     headerTitleStyle: {
         //标题的文字颜色
-        flex:1, textAlign: 'center',
+        flex: 1, textAlign: 'center',
         color: 'white',
         //设置标题的大小
         fontSize: 18,
         //居中显示
         alignSelf: 'center',
+
     },
 });
+//image外面包裹一层，不然点击事件不起效果
+const rightView = <View style={styles.rightContainer}>
+    <TouchableOpacity onPress={() => {
+        ToastAndroid.show("搜索中...", 1000)
+    }}>
+        <Image source={
+            require('../../img/ic_search.png')
+        } style={styles.imgStyle}/>
+    </TouchableOpacity>
+    <TouchableOpacity onPress={() => {
+        Alert.alert('提示',
+            '展开菜单',
+            [
+                {
+                    text: '稍后询问',
+                    onPress: () => ToastAndroid.show('wait', ToastAndroid.SHORT)
+                },
+                {
+                    text: '取消',
+                    onPress: () => ToastAndroid.show('Cancel', ToastAndroid.SHORT),
+                    style: 'cancel'
+                },
+                {
+                    text: '好的',
+                    onPress: () => ToastAndroid.show('OK', ToastAndroid.SHORT)
+                },
+            ],
+            {
+                cancelable: true,
+                onDismiss: () => {
+                    ToastAndroid.show('点击了外面', ToastAndroid.SHORT)
+                }
+            });
+    }}>
+        <Image source={
+            require('../../img/ic_menu.png')
+        } style={styles.imgStyle1}/></TouchableOpacity>
+</View>
+
+

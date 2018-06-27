@@ -39,6 +39,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
             new VectorIconsPackage(),
+
             new OrientationPackage(),
             new CodePush(BuildConfig.CODEPUSH_KEY, getApplicationContext(), true),
             new BarcodeScannerPackage(), new RCTCapturePackage()

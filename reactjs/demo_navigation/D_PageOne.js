@@ -4,38 +4,18 @@
  * date：
  */
 import React from 'react';
-
 import {
-    StyleSheet, Text, TouchableOpacity,
-    View,AppRegistry,YellowBox
+    StyleSheet,
+    View,
 } from 'react-native';
-YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
-import Feach from './reactjs/demo1_Feach'
-import List from './reactjs/demo2_list'
-import ImageTest from './reactjs/demo4_img'
-import Demo_ScroTab from  './reactjs/demo3_scrollTab'
-import  Demo5 from './reactjs/demo5flux'
-import DemoList from './reactjs/custormlist/DemoList'
-import DemoBuju from './reactjs/demobuju'
-import QQ from './reactjs/demoqq6'
+import {Text} from "antd-mobile";
 
-import ChangColor1 from './reactjs/demo8/changecolor1'
-import Index1 from './reactjs/demo8/containers/Index'
-import {Button} from 'react-native-elements'
-import BarcodeScanner from  './reactjs/demo8/containers/demo_scan'
-import  BarcodeTest from './reactjs/SmartScan'
-import  MainComponent  from './reactjs/demo_navigation/NavaigtionRouter'
-import DemoPicker from './reactjs/demo_imgpicker'
-
-export default class Index extends React.Component {
+export default class D_PageOne extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            text:"你好"
-        }
+        this.state = {}
     }
-
 
     /**
      * 初始化了状态之后，在第一次绘制 render() 之前
@@ -69,7 +49,6 @@ export default class Index extends React.Component {
      */
     shouldComponentUpdate() {
         return true
-
     }
 
     /**
@@ -97,17 +76,13 @@ export default class Index extends React.Component {
     }
 
     render() {
-
         return (
-            {}
+            <View>
 
-        )
-
+        <Text>我是侧滑的第一个界面</Text>
+            </View>
+        );
     }
-
 }
 
-
-AppRegistry.registerComponent('HelloRN', () => MainComponent);
-
-
+const styles = StyleSheet.create({});

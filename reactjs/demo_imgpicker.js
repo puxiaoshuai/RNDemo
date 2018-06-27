@@ -1,181 +1,203 @@
-
-import React, { Component } from 'react'
+import React, {Component} from 'react';
 import {
-    StyleSheet,
-    TouchableHighlight,
-    Text,
-    View,
-    Alert,
-    AppState,
-    Platform,
-} from 'react-native'
+    View, Text, StyleSheet, ScrollView, Alert,
+    Image, TouchableOpacity, NativeModules, Dimensions
+} from 'react-native';
 
-import Permissions from 'react-native-permissions'
 
-export default class App extends Component {
-    state = {
-        types: [],
-        status: {},
-    }
 
-    componentDidMount() {
-        let types = Permissions.getTypes()
-        let canOpenSettings = Permissions.canOpenSettings()
-
-        this.setState({ types, canOpenSettings })
-        this._updatePermissions(types)
-        AppState.addEventListener('change', this._handleAppStateChange)
-    }
-
-    componentWillUnmount() {
-        AppState.removeEventListener('change', this._handleAppStateChange)
-    }
-
-    //update permissions when app comes back from settings
-    _handleAppStateChange = appState => {
-        if (appState == 'active') {
-            this._updatePermissions(this.state.types)
-        }
-    }
-
-    _openSettings = () =>
-        Permissions.openSettings().then(() => alert('back to app!!'))
-
-    _updatePermissions = types => {
-        Permissions.checkMultiple(types)
-            .then(status => {
-                if (this.state.isAlways) {
-                    return Permissions.check('location', 'always').then(location => ({
-                        ...status,
-                        location,
-                    }))
-                }
-                return status
-            })
-            .then(status => this.setState({ status }))
-    }
-
-    _requestPermission = permission => {
-        var options
-
-        if (permission == 'location') {
-            options = this.state.isAlways ? 'always' : 'whenInUse'
-        }
-
-        Permissions.request(permission, options)
-            .then(res => {
-                this.setState({
-                    status: { ...this.state.status, [permission]: res },
-                })
-                if (res != 'authorized') {
-                    var buttons = [{ text: 'Cancel', style: 'cancel' }]
-                    if (this.state.canOpenSettings)
-                        buttons.push({
-                            text: 'Open Settings',
-                            onPress: this._openSettings,
-                        })
-
-                    Alert.alert(
-                        'Whoops!',
-                        'There was a problem getting your permission. Please enable it from settings.',
-                        buttons,
-                    )
-                }
-            })
-            .catch(e => console.warn(e))
-    }
-
-    _onLocationSwitchChange = () => {
-        this.setState({ isAlways: !this.state.isAlways })
-        this._updatePermissions(this.state.types)
-    }
-
-    render() {
-        return (
-            <View style={styles.container}>
-                {this.state.types.map(p => (
-                    <TouchableHighlight
-                        style={[styles.button, styles[this.state.status[p]]]}
-                        key={p}
-                        onPress={() => this._requestPermission(p)}
-                    >
-                        <View>
-                            <Text style={styles.text}>
-                                {Platform.OS == 'android' && p == 'location'
-                                    ? `location ${this.state.isAlways ? 'always' : 'whenInUse'}`
-                                    : p}
-                            </Text>
-                            <Text style={styles.subtext}>{this.state.status[p]}</Text>
-                        </View>
-                    </TouchableHighlight>
-                ))}
-                <View style={styles.footer}>
-                    <TouchableHighlight
-                        style={styles['footer_' + Platform.OS]}
-                        onPress={this._onLocationSwitchChange}
-                    >
-                        <Text style={styles.text}>Toggle location type</Text>
-                    </TouchableHighlight>
-
-                    {this.state.canOpenSettings && (
-                        <TouchableHighlight onPress={this._openSettings}>
-                            <Text style={styles.text}>Open settings</Text>
-                        </TouchableHighlight>
-                    )}
-                </View>
-
-                <Text style={styles['footer_' + Platform.OS]}>
-                    Note: microphone permissions may not work on android simulator. Also,
-                    toggling permissions from the settings menu may cause the app to
-                    crash. This is normal on android. Google "android crash permission change"
-                </Text>
-            </View>
-        )
-    }
-}
+var ImagePicker = NativeModules.ImageCropPicker;
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#F5FCFF',
-        padding: 10,
-    },
-    text: {
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    subtext: {
-        textAlign: 'center',
+        alignItems: 'center'
     },
     button: {
-        margin: 5,
-        borderColor: 'black',
-        borderWidth: 3,
-        overflow: 'hidden',
+        backgroundColor: 'blue',
+        marginBottom: 10
     },
-    buttonInner: {
-        flexDirection: 'column',
-    },
-    undetermined: {
-        backgroundColor: '#E0E0E0',
-    },
-    authorized: {
-        backgroundColor: '#C5E1A5',
-    },
-    denied: {
-        backgroundColor: '#ef9a9a',
-    },
-    restricted: {
-        backgroundColor: '#ef9a9a',
-    },
-    footer: {
-        padding: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    footer_android: {
-        height: 0,
-        width: 0,
-    },
-})
+    text: {
+        color: 'white',
+        fontSize: 20,
+        textAlign: 'center'
+    }
+});
+
+export default class App extends Component {
+
+    constructor() {
+        super();
+        this.state = {
+            image: null,
+            images: null
+        };
+    }
+
+    pickSingleWithCamera(cropping) {
+        ImagePicker.openCamera({
+            cropping: cropping,
+            width: 500,
+            height: 500,
+            includeExif: true,
+        }).then(image => {
+            console.log('received image', image);
+            this.setState({
+                image: {uri: image.path, width: image.width, height: image.height},
+                images: null
+            });
+        }).catch(e => alert(e));
+    }
+
+    pickSingleBase64(cropit) {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 300,
+            cropping: cropit,
+            includeBase64: true,
+            includeExif: true,
+        }).then(image => {
+            console.log('received base64 image');
+            this.setState({
+                image: {uri: `data:${image.mime};base64,`+ image.data, width: image.width, height: image.height},
+                images: null
+            });
+        }).catch(e => alert(e));
+    }
+
+    cleanupImages() {
+        ImagePicker.clean().then(() => {
+            console.log('removed tmp images from tmp directory');
+        }).catch(e => {
+            alert(e);
+        });
+    }
+
+    cleanupSingleImage() {
+        let image = this.state.image || (this.state.images && this.state.images.length ? this.state.images[0] : null);
+        console.log('will cleanup image', image);
+
+        ImagePicker.cleanSingle(image ? image.uri : null).then(() => {
+            console.log(`removed tmp image ${image.uri} from tmp directory`);
+        }).catch(e => {
+            alert(e);
+        })
+    }
+
+    cropLast() {
+        if (!this.state.image) {
+            return Alert.alert('No image', 'Before open cropping only, please select image');
+        }
+
+        ImagePicker.openCropper({
+            path: this.state.image.uri,
+            width: 200,
+            height: 200
+        }).then(image => {
+            console.log('received cropped image', image);
+            this.setState({
+                image: {uri: image.path, width: image.width, height: image.height, mime: image.mime},
+                images: null
+            });
+        }).catch(e => {
+            console.log(e);
+            Alert.alert(e.message ? e.message : e);
+        });
+    }
+
+    pickSingle(cropit, circular=false) {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 300,
+            cropping: cropit,
+            cropperCircleOverlay: circular,
+            compressImageMaxWidth: 640,
+            compressImageMaxHeight: 480,
+            compressImageQuality: 0.5,
+            compressVideoPreset: 'MediumQuality',
+            includeExif: true,
+        }).then(image => {
+            console.log('received image', image);
+            this.setState({
+                image: {uri: image.path, width: image.width, height: image.height, mime: image.mime},
+                images: null
+            });
+        }).catch(e => {
+            console.log(e);
+            Alert.alert(e.message ? e.message : e);
+        });
+    }
+
+    pickMultiple() {
+        ImagePicker.openPicker({
+            multiple: true,
+            waitAnimationEnd: false,
+            includeExif: true,
+        }).then(images => {
+            this.setState({
+                image: null,
+                images: images.map(i => {
+                    console.log('received image', i);
+                    return {uri: i.path, width: i.width, height: i.height, mime: i.mime};
+                })
+            });
+        }).catch(e => alert(e));
+    }
+
+    scaledHeight(oldW, oldH, newW) {
+        return (oldH / oldW) * newW;
+    }
+
+
+
+    renderImage(image) {
+        return <Image style={{width: 300, height: 300, resizeMode: 'contain'}} source={image} />
+    }
+
+    renderAsset(image) {
+
+
+        return this.renderImage(image);
+    }
+
+    render() {
+        return (<View style={styles.container}>
+            <ScrollView>
+                {this.state.image ? this.renderAsset(this.state.image) : null}
+                {this.state.images ? this.state.images.map(i => <View key={i.uri}>{this.renderAsset(i)}</View>) : null}
+            </ScrollView>
+
+            <TouchableOpacity onPress={() => this.pickSingleWithCamera(false)} style={styles.button}>
+                <Text style={styles.text}>Select Single With Camera</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.pickSingleWithCamera(true)} style={styles.button}>
+                <Text style={styles.text}>Select Single With Camera With Cropping</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.pickSingle(false)} style={styles.button}>
+                <Text style={styles.text}>Select Single</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.cropLast()} style={styles.button}>
+                <Text style={styles.text}>Crop Last Selected Image</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.pickSingleBase64(false)} style={styles.button}>
+                <Text style={styles.text}>Select Single Returning Base64</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.pickSingle(true)} style={styles.button}>
+                <Text style={styles.text}>Select Single With Cropping</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.pickSingle(true, true)} style={styles.button}>
+                <Text style={styles.text}>Select Single With Circular Cropping</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.pickMultiple.bind(this)} style={styles.button}>
+                <Text style={styles.text}>Select Multiple</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.cleanupImages.bind(this)} style={styles.button}>
+                <Text style={styles.text}>Cleanup All Images</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this.cleanupSingleImage.bind(this)} style={styles.button}>
+                <Text style={styles.text}>Cleanup Single Image</Text>
+            </TouchableOpacity>
+        </View>);
+    }
+}
